@@ -46,3 +46,17 @@ func CheckUser(ctx *gin.Context) {
 		lib.HandlerOK(ctx, "List paket tersedia", result, nil)
 	}
 }
+
+func PurchaseOrder(ctx *gin.Context) {
+	form := dtos.PurchaseOrder{}
+
+	ctx.ShouldBind(&form)
+
+	result, err := service.PurchaseOrder(form)
+	if err != nil {
+		lib.HandlerBadReq(ctx, "Failed to purchase order")
+		return
+	}
+	fmt.Println(result)
+	lib.HandlerOK(ctx, "Transaction Success", result, nil)
+}

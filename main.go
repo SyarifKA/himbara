@@ -1,11 +1,13 @@
 package main
 
 import (
+	"github.com/SyarifKA/himbara/lib"
 	"github.com/SyarifKA/himbara/routers"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	lib.ConnectDB()
 	r := gin.Default()
 	// r.Static("/img/profile", "./img/profile")
 	// r.Static("/img/event", "./img/event")

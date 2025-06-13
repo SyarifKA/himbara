@@ -9,8 +9,8 @@ import (
 
 var DB *gorm.DB
 
-func ConnectDB() {
-	dsn := "user:password@tcp(127.0.0.1:3306)/himbara?charset=utf8mb4&parseTime=True&loc=Local"
+func ConnectDB() *gorm.DB {
+	dsn := "root:@tcp(127.0.0.1:3306)/himbara1?charset=utf8mb4&parseTime=True&loc=Local"
 
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
@@ -19,8 +19,5 @@ func ConnectDB() {
 	}
 
 	fmt.Println("Berhasil konek ke database MySQL: himbara")
-}
-
-func GetDB() *gorm.DB {
 	return DB
 }

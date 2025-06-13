@@ -7,4 +7,5 @@ import (
 
 func UserRouters(r *gin.RouterGroup) {
 	r.POST("", controllers.CheckUser)
+	r.POST("/purchase", controllers.PurchaseOrder)
 }
