@@ -9,6 +9,7 @@ import (
 
 	"github.com/SyarifKA/himbara/dtos"
 	"github.com/SyarifKA/himbara/lib"
+	"github.com/SyarifKA/himbara/logs/logger"
 	"github.com/SyarifKA/himbara/service"
 	"github.com/gin-gonic/gin"
 )
@@ -37,19 +38,20 @@ func CheckUser(ctx *gin.Context) {
 	fmt.Println(body)
 
 	isEligible := string(body)
+	logger.Info("masuk")
 
 	if isEligible != "success" {
 		lib.HandlerBadReq(ctx, "Maaf permintaan anda tidak dapat diproses")
 		return
 	} else {
 		result := service.CheckoutOrder(form)
-		lib.HandlerOK(ctx, "List paket tersedia", result, nil)
+		logger.Info("List paket tersedia")
+		lib.HandlerOK(ctx, "Transaksi dapat dilanjutkan", result, nil)
 	}
 }
 
 func PurchaseOrder(ctx *gin.Context) {
 	form := dtos.PurchaseOrder{}
-
 	ctx.ShouldBind(&form)
 
 	result, err := service.PurchaseOrder(form)

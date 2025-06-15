@@ -19,7 +19,7 @@ func CheckoutOrder(form dtos.User) []models.ListPackage {
 		return result // return kosong jika gagal marshal
 	}
 
-	resp, err := http.Post("http://localhost:8080/receiver", "application/json", bytes.NewBuffer(jsonData))
+	resp, err := http.Post("http://localhost:8080/users", "application/json", bytes.NewBuffer(jsonData))
 	if err != nil {
 		return result // return kosong jika gagal kirim
 	}

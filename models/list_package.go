@@ -18,7 +18,7 @@ type PurchaseOrder struct {
 	ProductId     string
 	ProductName   string
 	Amount        int64
-	Status        string `gorm:"default:'waiting'"`
+	Status        string
 	CreatedAt     time.Time
 }
 

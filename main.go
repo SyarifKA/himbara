@@ -1,7 +1,10 @@
 package main
 
 import (
+	"os"
+
 	"github.com/SyarifKA/himbara/lib"
+	"github.com/SyarifKA/himbara/logs/logger"
 	"github.com/SyarifKA/himbara/routers"
 	"github.com/gin-gonic/gin"
 )
@@ -15,6 +18,20 @@ func main() {
 	// config.AllowAllOrigins = true
 	// config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
 	// r.Use(cors.New(config))
+
+	// initialize config log
+	os.MkdirAll("logs/log", os.ModePerm)
+
+	// Init logger config
+	logger.InitLogger(&logger.Config{
+		Formatter: &logger.TextFormatter,
+		Level:     logger.InfoLevel,
+		LogName:   "application.log",
+	})
+	// if err != nil {
+	// 	logger.Fatal(err)
+	// }
+
 	routers.RoutersCombine(r)
 
 	r.Run("localhost:8888")
