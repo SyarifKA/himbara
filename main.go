@@ -7,6 +7,7 @@ import (
 	"github.com/SyarifKA/himbara/logs/logger"
 	"github.com/SyarifKA/himbara/routers"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -18,6 +19,8 @@ func main() {
 	// config.AllowAllOrigins = true
 	// config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
 	// r.Use(cors.New(config))
+
+	_ = godotenv.Load()
 
 	// initialize config log
 	os.MkdirAll("logs/log", os.ModePerm)
