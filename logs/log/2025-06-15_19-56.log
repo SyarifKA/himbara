@@ -1,4 +1,0 @@
-time="2025-06-15 19:56:02.942" level=info msg="Purchase order success" headers="map[Accept:[*/*] Accept-Encoding:[gzip, deflate, br] Connection:[keep-alive] Content-Length:[96] Content-Type:[application/x-www-form-urlencoded] Postman-Token:[549315ef-41f8-4666-aea8-1f30be19e099] User-Agent:[PostmanRuntime/7.44.0]]" ip=127.0.0.1 method=POST path=/users/purchase
-time="2025-06-15 19:56:02.942" level=info msg=masuk
-time="2025-06-15 19:56:49.052" level=info msg="Purchase order success" headers="map[Accept:[*/*] Accept-Encoding:[gzip, deflate, br] Connection:[keep-alive] Content-Length:[96] Content-Type:[application/x-www-form-urlencoded] Postman-Token:[71f6a477-a100-4891-b30a-9c2c62e6c240] User-Agent:[PostmanRuntime/7.44.0]]" ip=127.0.0.1 method=POST path=/users/purchase
-time="2025-06-15 19:56:49.075" level=info msg=masuk
