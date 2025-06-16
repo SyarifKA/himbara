@@ -3,7 +3,6 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -26,27 +25,44 @@ func CheckUser(ctx *gin.Context) {
 	}
 
 	// Kirim ke endpoint lain
-	resp, err := http.Post("http://localhost:8080/receiver", "application/json", bytes.NewBuffer(jsonData))
+	resp, err := http.Post("http://localhost:8080/users", "application/json", bytes.NewBuffer(jsonData))
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "failed to send request"})
 		return
 	}
 	defer resp.Body.Close()
 
-	// Baca respons dari endpoint tujuan
+	// // Baca respons dari endpoint tujuan
 	body, _ := io.ReadAll(resp.Body)
-	fmt.Println(body)
 
-	isEligible := string(body)
-	logger.Info("masuk")
+	// isEligible := string(body)
 
-	if isEligible != "success" {
+	// // logger.Info("masuk")
+
+	// Parse JSON response
+	var isEligible map[string]interface{}
+	if err := json.Unmarshal(body, &isEligible); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "failed to parse response"})
+		return
+	}
+
+	success := isEligible["success"].(bool)
+
+	// Parse JSON response
+	var result map[string]interface{}
+	if err := json.Unmarshal(body, &result); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "failed to parse response"})
+		return
+	}
+
+	data := result["results"].([]interface{})
+	if !success {
 		lib.HandlerBadReq(ctx, "Maaf permintaan anda tidak dapat diproses")
 		return
 	} else {
-		result := service.CheckoutOrder(form)
+		// result := service.CheckoutOrder(form)
 		logger.Info("List paket tersedia")
-		lib.HandlerOK(ctx, "Transaksi dapat dilanjutkan", result, nil)
+		lib.HandlerOK(ctx, "Transaksi dapat dilanjutkan", data, nil)
 	}
 }
 
@@ -59,6 +75,6 @@ func PurchaseOrder(ctx *gin.Context) {
 		lib.HandlerBadReq(ctx, "Failed to purchase order")
 		return
 	}
-	fmt.Println(result)
+	// fmt.Println(result)
 	lib.HandlerOK(ctx, "Transaction Success", result, nil)
 }

@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/SyarifKA/himbara/lib"
 	"github.com/SyarifKA/himbara/models"
@@ -16,13 +16,13 @@ func MidtransNotification(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(notifPayload)
+	// fmt.Println(notifPayload)
 
 	Id := notifPayload["order_id"].(string)
 	transactionStatus := notifPayload["transaction_status"].(string)
 	paymentType := notifPayload["payment_type"].(string)
 
-	fmt.Println(transactionStatus)
+	// fmt.Println(transactionStatus)
 
 	// Update ke database
 	db := lib.ConnectDB()
@@ -32,9 +32,18 @@ func MidtransNotification(c *gin.Context) {
 		return
 	}
 
-	po.Status = transactionStatus
-	po.PaymentChanel = paymentType
-	db.Save(&po)
+	// po.UpdatedAt = time.Now()
+	// po.Status = transactionStatus
+	// po.PaymentChanel = paymentType
+	// db.Save(&po)
+
+	db.Model(&models.PurchaseOrder{}).
+		Where("id = ?", Id).
+		Updates(map[string]interface{}{
+			"status":         transactionStatus,
+			"payment_chanel": paymentType,
+			"updated_at":     time.Now(),
+		})
 
 	c.JSON(http.StatusOK, gin.H{"message": "Status updated"})
 }

@@ -20,6 +20,7 @@ type PurchaseOrder struct {
 	Amount          int64
 	Status          string
 	CreatedAt       time.Time
+	UpdatedAt       time.Time
 	SnapToken       string `gorm:"column:snap_token"` // tambahkan
 	SnapRedirectUrl string `gorm:"column:snap_redirect_url"`
 }

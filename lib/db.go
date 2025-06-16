@@ -18,6 +18,5 @@ func ConnectDB() *gorm.DB {
 		panic(fmt.Sprintf("Gagal konek ke database: %v", err))
 	}
 
-	// fmt.Println("Berhasil konek ke database MySQL: himbara1")
 	return DB
 }

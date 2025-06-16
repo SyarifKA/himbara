@@ -11,7 +11,7 @@ type PurchaseOrder struct {
 	ProductId     string `form:"productId"`
 	ProductName   string `form:"productName"`
 	Amount        int64  `form:"amount"`
-	Status        string `gorm:"default:'waiting'"`
+	// Status        string `gorm:"default:'waiting'"`
 }
 
 type CheckoutPayload struct {
