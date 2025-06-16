@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/SyarifKA/himbara/lib"
@@ -15,14 +16,18 @@ func MidtransNotification(c *gin.Context) {
 		return
 	}
 
-	orderID := notifPayload["order_id"].(string)
+	fmt.Println(notifPayload)
+
+	Id := notifPayload["order_id"].(string)
 	transactionStatus := notifPayload["transaction_status"].(string)
 	paymentType := notifPayload["payment_type"].(string)
+
+	fmt.Println(transactionStatus)
 
 	// Update ke database
 	db := lib.ConnectDB()
 	var po models.PurchaseOrder
-	if err := db.First(&po, "id = ?", orderID).Error; err != nil {
+	if err := db.First(&po, "id = ?", Id).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Order not found"})
 		return
 	}

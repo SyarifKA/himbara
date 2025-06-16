@@ -1,0 +1,1 @@
+time="2025-06-16 10:29:05.876" level=info msg="Purchase order success" headers="map[Accept:[*/*] Accept-Encoding:[gzip, deflate, br] Connection:[keep-alive] Content-Length:[95] Content-Type:[application/x-www-form-urlencoded] Postman-Token:[9824b755-66c2-4501-b106-8efa913a9865] User-Agent:[PostmanRuntime/7.44.0]]" ip=127.0.0.1 method=POST path=/users/purchase

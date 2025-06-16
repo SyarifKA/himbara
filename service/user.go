@@ -94,10 +94,6 @@ func PurchaseOrder(order dtos.PurchaseOrder) (*models.PurchaseOrder, error) {
 		Status:        status,
 	}
 
-	// if err := db.Create(&po).Error; err != nil {
-	// 	return nil, err
-	// }
-
 	// 🔻 Integrasi Midtrans Snap di sini
 	client := midtrans.NewClient()
 	client.ServerKey = os.Getenv("MIDTRANS_SERVER_KEY")
@@ -137,15 +133,15 @@ func PurchaseOrder(order dtos.PurchaseOrder) (*models.PurchaseOrder, error) {
 	}
 
 	// Dapatkan status transaksi dari Midtrans
-	core := midtrans.CoreGateway{Client: client}
-	txStatus, err := core.Status(po.Id)
-	if err != nil {
-		fmt.Println("Midtrans Status Check error:", err.Error())
-		return nil, err
-	}
+	// core := midtrans.CoreGateway{Client: client}
+	// txStatus, err := core.Status(po.Id)
+	// if err != nil {
+	// 	fmt.Println("Midtrans Status Check error:", err.Error())
+	// 	return nil, err
+	// }
 
-	po.Status = txStatus.TransactionStatus
-	po.PaymentChanel = txStatus.PaymentType
+	// po.Status = txStatus.TransactionStatus
+	// po.PaymentChanel = txStatus.PaymentType
 
 	// Simpan snap token & URL ke DB (opsional)
 	po.SnapToken = snapResp.Token
@@ -155,10 +151,10 @@ func PurchaseOrder(order dtos.PurchaseOrder) (*models.PurchaseOrder, error) {
 	return &po, nil
 }
 
-func UpdateOrderStatus(orderID, status, paymentType string) error {
+func UpdateOrderStatus(Id, status, paymentType string) error {
 	db := lib.ConnectDB()
 	var po models.PurchaseOrder
-	if err := db.First(&po, "id = ?", orderID).Error; err != nil {
+	if err := db.First(&po, "id = ?", Id).Error; err != nil {
 		return err
 	}
 
